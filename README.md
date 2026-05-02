@@ -92,36 +92,6 @@ novacode.local
 
 ---
 
-## Testing (Exercici 4 — Comprovar els recursos)
-
-### List visible shares from the server
-```bash
-smbclient -L localhost -U uDirectora%@ITB2025
-```
-
-### Write test — `uDirectora` → `tresoreria` (has write access)
-```bash
-smbclient //IP_SERVIDOR/tresoreria \
-  -U "NOVACODE.LOCAL\uDirectora%@ITB2025" \
-  -c "put /etc/hostname fitxer_prova.txt; ls"
-```
-
-### Read-only test — `uDesenvolupadora` → `comptabilitat` (read only)
-```bash
-smbclient //IP_SERVIDOR/comptabilitat \
-  -U "NOVACODE.LOCAL\uDesenvolupadora%@ITB2025" \
-  -c "ls; put /etc/hostname test.txt"
-# ls → OK  |  put → NT_STATUS_ACCESS_DENIED
-```
-
-### Access denied test — `uOficinista` → `tresoreria` (no access)
-```bash
-smbclient //IP_SERVIDOR/tresoreria \
-  -U "NOVACODE.LOCAL\uOficinista%@ITB2025" \
-  -c "ls"
-# → NT_STATUS_ACCESS_DENIED
-```
-
 ### Permanent network drive on Windows 10
 
 **Via GUI:** File Explorer → Right-click *This PC* → *Map network drive* → `\\IP_SERVIDOR\tresoreria` → tick *Reconnect at sign-in* → enter credentials `NOVACODE\uDirectora` / `@ITB2025`.
